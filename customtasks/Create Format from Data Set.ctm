@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Task schemaVersion="5.2" runNLS="never">
+	<Registration>
+	<Name>Create Format from Data Set</Name>
+	<Description>Create Format from Data Set</Description>
+	<GUID>726B2B12-4542-4200-96F4-960C645D767F</GUID>
+	<Procedures>FORMAT</Procedures>
+	<Version>3.7</Version>
+	<Links>
+		<Link href="http://documentation.sas.com/?softwareId=STUDIOMID&amp;softwareVersion=3.7&amp;softwareContextId=tasks&amp;requestor=inapp">SAS Studio Task Reference Guide</Link>
+	</Links>
+	</Registration>
+	
+	<Metadata>
+		
+		<DataSources>	
+		<DataSource name="datasource">
+      	<Roles>
+         <Role type="N" maxVars="1" order="true" minVars="1"
+            name="startn"> Start Column</Role> 
+         <Role type="C" maxVars="1" order="true" minVars="1"
+            name="startc"> Start Column</Role> 
+         <Role type="C" maxVars="1" order="true" minVars="1"
+             name="label">Label Column</Role>
+      	</Roles>
+      	</DataSource>
+		</DataSources>
+
+		<Options>
+		<Option name="dataTab" inputType="string">DATA</Option>
+		<Option name="optionsGroup" inputType="string">OPTIONS</Option>
+		<Option name="fmtname" defaultValue="myfmt" inputType="inputtext" 
+  		 indent="0"   required="true" promptMessage="Enter formatname"
+  		 missingMessage="Missing text.">Format Name:</Option>
+		<Option name="type" defaultValue="N" inputType="combobox"
+  		 width="100%">Format Type:</Option>
+		<Option name="C" inputType="string">Character</Option>
+		<Option name="N" inputType="string">Numeric</Option>
+		<Option name="library" defaultValue="WORK" inputType="inputtext" 
+  		 indent="0"   required="true" promptMessage="Enter Format Library:"
+  		 missingMessage="Missing text.">Format Library:</Option>
+		<Option name="other" defaultValue="Other" inputType="inputtext" 
+  		 indent="0"   required="true" promptMessage="Enter Label Other values"
+  		 missingMessage="Missing text.">Other values:</Option>
+  		<Option name="fmtlib" defaultValue="0" inputType="checkbox">Generate Summary Report:</Option>
+		<Option name="length" defaultValue="20" inputType="numstepper" indent="0">Maximum Label length:</Option>
+		<Option name="dataGroup" inputType="string">DATA</Option>
+		<Option name="rolesGroup" inputType="string">ROLES</Option>
+		</Options>
+		
+	</Metadata>
+	
+	<UI>
+	<Container option="dataTab">
+	<Group option="dataGroup" open="true">
+        <DataItem data="datasource" />
+     </Group>
+		<Group option="optionsGroup" open="true">
+				<OptionItem option="fmtname"/>
+				<OptionChoice option="type">
+					<OptionItem option="C"/>
+					<OptionItem option="N"/>
+				</OptionChoice>
+				<OptionItem option="library"/>
+				<OptionItem option="other"/>
+				<OptionItem option="length"/>
+				<OptionItem option="fmtlib"/>
+		</Group>
+      
+      <Group option="rolesGroup" open="true">
+         <RoleItem role="startn"/>
+         <RoleItem role="startc"/>
+         <RoleItem role="label"/>
+      </Group>
+   </Container>
+	</UI>
+<Dependencies>
+   <Dependency condition="$type=='N'">
+      <Target conditionResult="true" option="startn" action="show"/>
+      <Target conditionResult="true" option="startc" action="hide"/>
+      <Target conditionResult="false" option="startn" action="hide"/>
+      <Target conditionResult="false" option="startc" action="show"/>
+   </Dependency>
+   
+</Dependencies>	
+  	<CodeTemplate>
+		<![CDATA[
+
+   #if ($type=='N')
+   #set($start=$startn.get(0))
+   #else 
+   #set($start=$startc.get(0))
+   #end
+
+#set($label=$label.get(0))
+
+/* --------------------------------------------------------------------
+   Manipulates the incoming data into the correct format for PROC
+   FORMAT to use as a CNTLIN data set.
+   -------------------------------------------------------------------- */
+TITLE; FOOTNOTE;
+DATA WORK._EG_CFMT;
+    LENGTH label $ $length;
+    SET $datasource (KEEP=$start $label RENAME=($start=start $label=label)) END=__last;
+    RETAIN fmtname "$fmtname" type "$type";
+
+    end=start;
+
+    OUTPUT;
+
+    IF __last = 1 THEN
+      DO;
+        hlo = "O";
+        label = "$other";
+        OUTPUT;
+      END;
+RUN;
+
+/* --------------------------------------------------------------------
+   Creates a new format based on the data values contained within the
+   source data set.
+   -------------------------------------------------------------------- */
+PROC FORMAT LIBRARY=$library CNTLIN=WORK._EG_CFMT;
+RUN;
+
+
+#if ($fmtlib=='1')
+   #if ($type=='N')
+   #set($name = "${fmtname}")
+   #else 
+   #set($name = "$${fmtname}")
+   #end
+
+     /* --------------------------------------------------------------------
+   Generates a summary report which describes the values and ranges
+   that make up the newly created format.
+   -------------------------------------------------------------------- */
+	PROC FORMAT LIBRARY=$library FMTLIB;
+    SELECT $name;
+    RUN;
+#end
+
+
+
+/* --------------------------------------------------------------------
+   Now that the new SAS format has been created, we want to tidy up by
+   deleting the WORK data set
+   -------------------------------------------------------------------- */
+PROC SQL;
+    DROP TABLE WORK._EG_CFMT;
+QUIT;
+
+
+		]]>
+	</CodeTemplate>
+</Task>
