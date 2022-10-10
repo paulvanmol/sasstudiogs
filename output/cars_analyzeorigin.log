@@ -1,0 +1,158 @@
+﻿NOTE: PROCEDURE PRINTTO used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+4          OPTIONS LOCALE=en_US DFLANG=LOCALE VALIDVARNAME=ANY VALIDMEMNAME=EXTEND;
+5          
+6          OPTIONS NOSYNTAXCHECK;
+7          DATA _NULL_;
+8          RC=DLGCDIR('d:/workshop/studiodemo/backgroundsubmit');
+9          RUN;
+
+NOTE: The current working directory is now "d:\workshop\studiodemo\backgroundsubmit".
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+10         OPTIONS NOSYNTAXCHECK;
+11         
+12         FILENAME _HTMLOUT %NRSTR("d:/workshop/studiodemo/output/cars_analyzeorigin.html");
+13         
+14         FILENAME _GSFNAME TEMP;
+15         DATA _NULL_;
+16         CALL SYMPUT("GRAPHINIT","");
+17         CALL SYMPUT("GRAPHTERM","");
+18         RC=TSLVL('SASXGOPT','N');
+19         _ERROR_=0;
+20         IF (RC^=' ') THEN DO;
+21         CALL SYMPUT("GRAPHINIT","GOPTIONS RESET=ALL GSFNAME=_GSFNAME;");
+22         CALL SYMPUT("GRAPHTERM","GOPTIONS NOACCESSIBLE;");
+23         END;
+24         RUN;
+
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+25         DATA _NULL_;
+26         RC=SYSPROD("PRODNUM002");
+27         IF (RC^=1) THEN DO;
+28         CALL SYMPUT("GRAPHINIT","");
+29         CALL SYMPUT("GRAPHTERM","");
+30         END;
+31         RUN;
+
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+32         %LET SYSCC=0;
+33         %LET _CLIENTAPP='SAS Studio';
+2                                                          The SAS System                       Monday, October 10, 2022 06:24:46 PM
+
+34         %LET _CLIENTAPPABREV=Studio;
+35         %LET _CLIENTAPPVERSION=3.81;
+36         %LET _CLIENTVERSION=3.81;
+37         %LET _CLIENTMODE=background;
+38         %LET _SASSERVERNAME=%BQUOTE(SASApp);
+39         %LET _SASHOSTNAME=%BQUOTE(SASBAP);
+40         %LET _SASPROGRAMFILEHOST=%BQUOTE(SASBAP);
+41         %LET _CLIENTUSERID=%BQUOTE(Eric);
+42         %LET _CLIENTUSERNAME=%BQUOTE(Eric);
+43         %LET CLIENTMACHINE=%BQUOTE(SASBAP.DEMO.SAS.COM);
+44         %LET _CLIENTMACHINE=%BQUOTE(SASBAP.DEMO.SAS.COM);
+45         %let SASWORKLOCATION="%sysfunc(getoption(work))/";
+46         FILENAME _CWD '.';
+47         DATA _NULL_;
+48         CALL SYMPUT('_SASWORKINGDIR',PATHNAME('_CWD'));
+49         RUN;
+
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+50         FILENAME _CWD;
+NOTE: Fileref _CWD has been deassigned.
+51         
+52         %LET _SASPROGRAMFILE = %NRQUOTE(%NRSTR(d:/workshop/studiodemo/backgroundsubmit/cars_analyzeorigin.sas));
+53         %LET _EXECENV=SASStudio Background;
+54         %LET _SASWS_ = %BQUOTE(C:/Users/Eric);
+55         %LET _SASWSTEMP_=%BQUOTE();
+56         ODS LISTING CLOSE;
+57         ODS AUTONAVIGATE OFF;
+58         ODS GRAPHICS ON;
+59         ODS HTML5 (ID=WEB) DEVICE=PNG GPATH="&_SASWSTEMP_" ENCODING=utf8 FILE=_HTMLOUT (TITLE='Results: cars_analyzeorigin.sas')
+59       ! STYLE=HTMLBlue OPTIONS(BITMAP_MODE='INLINE' OUTLINE='ON' SVG_MODE='INLINE'
+59       ! CSS_PREFIX='.ods_83e766c2-919c-4d40-b68e-64dd2e81ed0d' BODY_ID='div_83e766c2-919c-4d40-b68e-64dd2e81ed0d' );
+NOTE: Writing HTML5(WEB) Body file: _HTMLOUT
+60         &GRAPHINIT;
+61         
+62         proc freq data=sashelp.cars;
+63         	table origin /plots=all ;
+64         	run;
+
+NOTE: There were 428 observations read from the data set SASHELP.CARS.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           1.28 seconds
+      cpu time            0.09 seconds
+      
+
+65         
+66         
+67         proc means data=sashelp.cars;
+68         	class origin;
+69         	var mpg_city;
+70         run;
+
+NOTE: There were 428 observations read from the data set SASHELP.CARS.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.02 seconds
+3                                                          The SAS System                       Monday, October 10, 2022 06:24:46 PM
+
+      cpu time            0.01 seconds
+      
+
+71         /*--Bar Panel--*/
+72         
+73         title 'Mileage by Origin and Type';
+74         proc sgpanel data=sashelp.cars(where=(type in ('Sedan' 'Sports'))) noautolegend;
+75           panelby Type / novarname columns=2 onepanel;
+76           vbar origin / response=mpg_city stat=mean group=origin;
+77           rowaxis grid;
+78           run;
+
+NOTE: PROCEDURE SGPANEL used (Total process time):
+      real time           0.28 seconds
+      cpu time            0.03 seconds
+      
+NOTE: There were 311 observations read from the data set SASHELP.CARS.
+      WHERE type in ('Sedan', 'Sports');
+
+79         /*--VBox Plot--*/
+80         
+81         title 'Mileage by Type and Origin';
+82         proc sgplot data=sashelp.cars(where=(type in ('Sedan' 'Sports'))) ;
+83           vbox mpg_city / category=origin group=type groupdisplay=cluster
+84             lineattrs=(pattern=solid) whiskerattrs=(pattern=solid);
+85           xaxis display=(nolabel);
+86           yaxis grid;
+87           keylegend / location=inside position=topright across=1;
+88           run;
+
+NOTE: PROCEDURE SGPLOT used (Total process time):
+      real time           0.20 seconds
+      cpu time            0.06 seconds
+      
+NOTE: There were 311 observations read from the data set SASHELP.CARS.
+      WHERE type in ('Sedan', 'Sports');
+
+89         
+90         OPTIONS NOSYNTAXCHECK;
+91         &GRAPHTERM; ;*';*";*/;RUN;QUIT;
+92         ODS HTML5 (ID=WEB) CLOSE;
+93         
