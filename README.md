@@ -10,6 +10,6 @@
 * SAS Studio Features
 * Background submit
 * Shareable Custom Tasks (prompting, repositories, …)
-* Git/Bitbucket Integration in SAS Studio (30 min)
-* Producing ODS Results in SAS Studio (30 min) 
-* Easy ways to Export SAS Dataset to Excel (30 min)
+* Git/Bitbucket Integration in SAS Studio
+* Producing ODS Results in SAS Studio
+* Easy ways to Export SAS Dataset to Excel
