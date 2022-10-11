@@ -52,7 +52,7 @@ NOTE: DATA statement used (Total process time):
 
 32         %LET SYSCC=0;
 33         %LET _CLIENTAPP='SAS Studio';
-2                                                          The SAS System                       Monday, October 10, 2022 06:24:46 PM
+2                                                          The SAS System                      Tuesday, October 11, 2022 05:56:54 AM
 
 34         %LET _CLIENTAPPABREV=Studio;
 35         %LET _CLIENTAPPVERSION=3.81;
@@ -88,7 +88,7 @@ NOTE: Fileref _CWD has been deassigned.
 58         ODS GRAPHICS ON;
 59         ODS HTML5 (ID=WEB) DEVICE=PNG GPATH="&_SASWSTEMP_" ENCODING=utf8 FILE=_HTMLOUT (TITLE='Results: cars_analyzeorigin.sas')
 59       ! STYLE=HTMLBlue OPTIONS(BITMAP_MODE='INLINE' OUTLINE='ON' SVG_MODE='INLINE'
-59       ! CSS_PREFIX='.ods_83e766c2-919c-4d40-b68e-64dd2e81ed0d' BODY_ID='div_83e766c2-919c-4d40-b68e-64dd2e81ed0d' );
+59       ! CSS_PREFIX='.ods_7e6aeb9e-65bd-4b79-9825-92c694bdb4b0' BODY_ID='div_7e6aeb9e-65bd-4b79-9825-92c694bdb4b0' );
 NOTE: Writing HTML5(WEB) Body file: _HTMLOUT
 60         &GRAPHINIT;
 61         
@@ -98,8 +98,8 @@ NOTE: Writing HTML5(WEB) Body file: _HTMLOUT
 
 NOTE: There were 428 observations read from the data set SASHELP.CARS.
 NOTE: PROCEDURE FREQ used (Total process time):
-      real time           1.28 seconds
-      cpu time            0.09 seconds
+      real time           1.43 seconds
+      cpu time            0.07 seconds
       
 
 65         
@@ -111,10 +111,10 @@ NOTE: PROCEDURE FREQ used (Total process time):
 
 NOTE: There were 428 observations read from the data set SASHELP.CARS.
 NOTE: PROCEDURE MEANS used (Total process time):
-      real time           0.02 seconds
-3                                                          The SAS System                       Monday, October 10, 2022 06:24:46 PM
+      real time           0.06 seconds
+3                                                          The SAS System                      Tuesday, October 11, 2022 05:56:54 AM
 
-      cpu time            0.01 seconds
+      cpu time            0.03 seconds
       
 
 71         /*--Bar Panel--*/
@@ -127,8 +127,8 @@ NOTE: PROCEDURE MEANS used (Total process time):
 78           run;
 
 NOTE: PROCEDURE SGPANEL used (Total process time):
-      real time           0.28 seconds
-      cpu time            0.03 seconds
+      real time           0.31 seconds
+      cpu time            0.07 seconds
       
 NOTE: There were 311 observations read from the data set SASHELP.CARS.
       WHERE type in ('Sedan', 'Sports');
@@ -145,8 +145,8 @@ NOTE: There were 311 observations read from the data set SASHELP.CARS.
 88           run;
 
 NOTE: PROCEDURE SGPLOT used (Total process time):
-      real time           0.20 seconds
-      cpu time            0.06 seconds
+      real time           0.33 seconds
+      cpu time            0.03 seconds
       
 NOTE: There were 311 observations read from the data set SASHELP.CARS.
       WHERE type in ('Sedan', 'Sports');

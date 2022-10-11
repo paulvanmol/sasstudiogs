@@ -52,7 +52,7 @@ TITLE1 "Visit these Hotsprings";
 FOOTNOTE;
 
 PROC PRINT DATA=VisitSprings NOOBS LABEL;
-	VAR Type, Area, Name, Farenheit;
+	VAR Type Area Name Farenheit;
 RUN;
 
 ods graphics / reset width=7in height=5in;
