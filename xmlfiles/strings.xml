@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<STRINGS>
+   <CHARS>
+      <status>proper escape sequence</status>
+      <ampersand>&amp;</ampersand>
+      <squote>&apos;</squote>
+      <dquote>&quot;</dquote>
+      <greater>&gt;</greater>
+   </CHARS>
+   <CHARS>
+       <status>unescaped character in CDATA</status>
+       <ampersand><![CDATA[Abbott & Costello]]></ampersand>
+       <squote><![CDATA[Logan's Run]]></squote>
+       <dquote><![CDATA[As Benjamin Franklin advised, "Well done is 
+               better than well said."]]></dquote>
+       <greater><![CDATA[ x > y ]]></greater>
+  </CHARS>
+   <CHARS>
+      <status>unescaped character in string</status>
+      <ampersand>Dunn & Bradstreet</ampersand>
+      <squote>Isn't this silly?</squote>
+      <dquote>Quoth the raven, "Nevermore!"</dquote>
+      <greater> > </greater>
+   </CHARS>
+</STRINGS>

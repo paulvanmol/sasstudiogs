@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<TABLE>
+   <CLASS>
+      <Name> Alfred </Name>
+      <Gender> M </Gender>
+      <Age> 14 </Age>
+      <Height> 69 </Height>
+      <Weight> 112.5 </Weight>
+   </CLASS>
+   <CLASS>
+      <Name> Alice </Name>
+      <Gender> F </Gender>
+      <Age> 13 </Age>
+      <Height> 56.5 </Height>
+      <Weight> 84 </Weight>
+   </CLASS>
+   <CLASS>
+      <Name> William </Name>
+      <Gender> M </Gender>
+      <Age> 15 </Age>
+      <Height> 66.5 </Height>
+      <Weight> 112 </Weight>
+   </CLASS>
+</TABLE>

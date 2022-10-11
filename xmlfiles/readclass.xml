@@ -1,0 +1,10 @@
+libname trans xmlv2 'd:\workshop\studiodemo\xmlfiles\class.xml'; /*1*/
+
+libname myfiles 'd:\workshop\studiodemo\output\'; /*2*/
+
+data myfiles.class; /*3*/
+   set trans.class;
+run;
+
+proc print data=myfiles.class;
+run;
