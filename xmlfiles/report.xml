@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<Library>
+  <Publication>
+    <Title>Developer's Almanac</Title>
+    <Acquired>12-11-2000</Acquired>
+    <Topic Major="Y">JAVA</Topic>
+  </Publication>
+  <Publication>
+    <Title>Inside Visual C++</Title>
+    <Acquired>06-19-1998</Acquired>
+    <Topic Major="Y">C</Topic>
+    <Topic>Reference</Topic>
+  </Publication>
+  <Publication>
+    <Title>Core Servlets</Title>
+    <Acquired>05-30-2001</Acquired>
+    <Topic Major="Y">JAVA</Topic>
+    <Topic>Servlets</Topic>
+    <Topic>Reference</Topic>
+  </Publication>
+</Library>

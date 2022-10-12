@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<SXLEMAP version="2.1">
+  <TABLE name="Publication">
+    <TABLE-PATH syntax="XPath">
+       /Library/Publication/Topic 
+    </TABLE-PATH> <!--1-->
+
+    <COLUMN name="Title" retain="YES">
+      <PATH>
+         /Library/Publication/Title
+      </PATH>
+      <TYPE>character</TYPE>
+      <DATATYPE>STRING</DATATYPE>
+      <LENGTH>19</LENGTH>
+    </COLUMN>
+
+    <COLUMN name="Acquired" retain="YES">
+      <PATH>
+        /Library/Publication/Acquired
+      </PATH>
+      <TYPE>numeric</TYPE>
+      <DATATYPE>FLOAT</DATATYPE>
+      <LENGTH>10</LENGTH>
+      <FORMAT width="10" >mmddyy</FORMAT> <!--2-->
+      <INFORMAT width="10" >mmddyy</INFORMAT>
+    </COLUMN>
+
+    <COLUMN name="Topic">
+      <PATH>
+         /Library/Publication/Topic</PATH>
+      <TYPE>character</TYPE>
+      <DATATYPE>STRING</DATATYPE>
+      <LENGTH>9</LENGTH>
+    </COLUMN>
+
+    <COLUMN name="Major">
+      <PATH>
+         /Library/Publication/Topic/@Major
+      </PATH>
+      <TYPE>character</TYPE>
+      <DATATYPE>STRING</DATATYPE>
+      <LENGTH>1</LENGTH>
+      <ENUM> <!--3-->
+        <VALUE>Y</VALUE>
+        <VALUE>N</VALUE>
+      </ENUM>
+     <DEFAULT>N</DEFAULT> <!--4-->
+    </COLUMN>
+  </TABLE>
+</SXLEMAP>
